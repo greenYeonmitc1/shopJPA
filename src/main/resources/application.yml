@@ -15,21 +15,19 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
-      show_sql: true
-      format_sql: true
+      #show_sql: true
+      #format_sql: true
 
     # JDBC TimeZone Setting
     properties:
       hibernate:
         jdbc:
           time_zone: Asia/Seoul
-
 logging:
   level:
     com.jpa.student: debug
     #org.hibernate.SQL: debug
     #org.hibernate.type: trace
-
 server:
   port: 8087
   servlet:

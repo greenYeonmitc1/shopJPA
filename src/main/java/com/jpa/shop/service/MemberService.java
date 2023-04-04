@@ -42,4 +42,9 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id); // 영속성 컨텍스트가 저장
+        member.setName(name); // 이름값 자동 수정 -> jpa updqte 쿼리문을 실행
+    }
 }

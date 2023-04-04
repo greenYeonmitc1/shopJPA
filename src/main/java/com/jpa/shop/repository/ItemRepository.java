@@ -18,7 +18,11 @@ public class ItemRepository {
         if (item.getId() == null) {
             em.persist(item);
         } else {
-            em.merge(item);
+            em.merge(item);  // 새로운 item 전체변경 : name 수정 안하면 name => null
+            // 수정하는 방식이 2가지
+            // merge 랑 em.find()
+            //Item updateItem = em.find(Item.class,item.getId());
+           // em.persist(updateItem);
         }
     }
 

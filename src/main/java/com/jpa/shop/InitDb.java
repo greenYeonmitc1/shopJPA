@@ -2,6 +2,10 @@ package com.jpa.shop;
 
 import com.jpa.shop.domain.*;
 import com.jpa.shop.domain.item.Book;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -16,11 +20,17 @@ import javax.persistence.EntityManager;
  * 	 * SPRING2 BOOK
  */
 //@Component
-//@RequiredArgsConstructor
+@RequiredArgsConstructor   // final 붙은 값은 값을 넣어줌
 public class InitDb {
 
-    private final InitService initService = null;
 
+    private final InitService initService;  // final은 초기값이 셋팅이 되면 값 변경불가능
+//    @Autowired
+//    public InitDb(InitService initService){
+//        this.initService = initService;
+//    }
+//
+// 생성자가 만들어지면 바로 호출하는 메서드
     @PostConstruct
     public void init() {
         initService.dbInit1();
@@ -28,11 +38,11 @@ public class InitDb {
     }
 
     //@Component
-    //@Transactional
-    //@RequiredArgsConstructor
+    @Transactional
+    @RequiredArgsConstructor
     static class InitService {
 
-        private final EntityManager em = null;
+        private final EntityManager em;
 
         public void dbInit1() {
             System.out.println("Init1" + this.getClass());
@@ -48,7 +58,15 @@ public class InitDb {
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, 20000, 2);
 
+
+            //    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+
+            //em.persist(orderItem1);
+            //em.persist(orderItem2);
+
             Delivery delivery = createDelivery(member);
+
+            //    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
         }

@@ -28,7 +28,7 @@ public class OrderService {
     @Transactional
     public Long order(Long memberId, Long itemId, int count) {
 
-        //엔티티 조회
+        //엔티티 조회 -> 영속성 컨텍스트에 db에서 값 가져와서 넣어줌
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
 
